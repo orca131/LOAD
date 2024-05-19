@@ -3,29 +3,30 @@ import sys
 length = int(sys.argv[1])
 step = int(sys.argv[2])
 
-list_ = [i for i in range(1, length + 1)]
+x = max(length, step)
+y = min(length, step)
 
-length = len(list_)
-step = 2
+print(max(length, step) // min(length, step))
+
 
 # Сколько целых шагов можно сделать за 1 проход списка
-large_step = max(length, step) // min(length, step)
 
+# cur_step = 0
+# cur_length = 0
+# mlt_step = max(length, step) // min(length, step)
 
-if length > step:
-    length // step
+#while cur_length != cur_step:
+#    cur_length += min(length, step) * mlt_step
 
-while length != step:
-    for i in range(length // )
-    step += step
-        length += length
+#while length != step:
+#    large_step
 
-result = list_ * length
+#result = list_ * length
 
-result.append(list_[0])
+#result.append(list_[0])
 
-print(*result, sep='')
-print(length, step)
+#print(*result, sep='')
+#print(length, step)
 
 # list_ = ['a', 'b', 'c','d', 'e', 'f','g', 'h']
 # target = list_[0] > 1
