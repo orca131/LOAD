@@ -22,15 +22,15 @@ filtered_dict = [obj for obj in load_values['values'] if obj['value'] == 'passed
 ids = [key for key in filtered_dict.keys()]
 print(ids)
 
-print(filtered_dict)
+print(passed_objects)
 
 # Преобразовать полученные объекты в json строку
 
-#json_string = json.dumps(passed_objects, indent=2)
+json_string = json.dumps(passed_objects, indent=2)
 
 # Записать строку
-#with open(out_report, 'w') as outfile:
-#    outfile.write(json_string)
+with open(out_report, 'w') as outfile:
+    outfile.write(json_string)
 
 """
 class MyEncoder(json.JSONEncoder):
