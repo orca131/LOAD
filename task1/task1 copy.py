@@ -1,14 +1,13 @@
 import sys
 
-list_ = ['a', 'b', 'c']
+list_ = ['a', 'b', 'c','d', 'e', 'f','g', 'h']
+target = list_[0] > 1
 step = 2
 
-new_cycle = 1
-for _ in range(4):
-    for j in range(0, len(list_)):
+line = ''
 
-        print(list_[j])
-        new_cycle += 1
-
-        if list_[j] == list_[0]:
-            print('(yup)')
+for i in range(len(list_)):
+    line += list_[i]
+    if list_[i] == target and i :
+        break
+print(line)
