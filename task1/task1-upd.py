@@ -1,12 +1,25 @@
 import sys
+import math
 
 length = int(sys.argv[1])
 step = int(sys.argv[2])
 
-x = max(length, step)
-y = min(length, step)
+# Найти наименьшее общее кратное
 
-print(max(length, step) // min(length, step))
+def lcm(a, b):
+    return abs(a * b) // math.gcd(a, b)
+
+multiplier = lcm(length, step)
+
+# Создать кольцевой диапазон 
+
+ring_range = [_ for _ in range(1, length + 1)] * multiplier
+#ring_range.append(ring_range[0])
+
+for j in ring_range[::step]:
+    print(j, sep=' ', end='')
+print()
+#print(ring_range)
 
 
 # Сколько целых шагов можно сделать за 1 проход списка
