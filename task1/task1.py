@@ -1,37 +1,38 @@
 import sys
+import math
 
 length = int(sys.argv[1])
-# step = int(sys.argv[2])
-# list_ = [i for i in range(1, length + 1)]
-step = 2
-list_ = ['a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c','a', 'b', 'c','a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c','a', 'b', 'c']
-symbol = list_[0]
+step = int(sys.argv[2])
+
+# Найти наименьшее общее кратное
+
+def lcm(a, b):
+    return abs(a * b) // math.gcd(a, b)
+
+multiplier = lcm(length, step)
+
+# Создать кольцевой диапазон
+# (Как определить минимальный необходимый диапазон?)
+
+ring_range = [_ for _ in range(1, length + 1)] * multiplier
+ring_range.append(ring_range[0])
+
+
+# Проверять каждый n элемент диапазона
+# до тех пор пока первый элемент не встретится дважды
+
+result = []
+match = False
 counter = 0
-final_round = ''
-
-step_counter = 0
-
-for j in list_:
-    final_round = final_round + str(j)
-    step_counter += 1
-    print('current step:', step_counter)
-    print('J:', j, 'symbol:', symbol, 'counter:', counter)
-    if step_counter == step:
-        if counter == step:
-            break
-        if j == symbol:
+while not match:
+    for j in ring_range[::step - 1]:
+        if j == ring_range[0]:
             counter += 1
-            print('test')
+        if counter > 1:
+            match = True
+            break
+        result.append(j)
 
-print(final_round)
-# print("длинна:", len(final_round))
+# Передать результат в STDOUT
 
-# В итоговом списке последняя буква = первая
-
-# 'none', list_[::2]
-# Как получить индекс элемента
-# get_index = list_.index('a')
-# print(get_index, list_[get_index]) 
-
-#print(list_)
-# print(length + step)
+print(result)
