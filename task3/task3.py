@@ -1,63 +1,30 @@
 import sys
 import json
-import shutil
 
-src_values = sys.argv[1]
-src_tests = sys.argv[2]
-out_report = sys.argv[3]
+path_values = sys.argv[1]
+path_tests = sys.argv[2]
+path_report = sys.argv[3]
 
-# Скопировать файл tests.json
+# Загрузить файлы в память
 
-shutil.copy(src_tests, out_report)
+with open(path_values, 'r') as file:
+    src_values = json.load(file)
 
-# Получить содержимое файлов
+with open(path_tests, 'r') as file:
+    src_tests = json.load(file)
 
-load_values = json.loads(open(src_values).read())
-load_report = json.loads(open(out_report).read())
+# Получить список успешно выполненных тестов
 
-# Извлечь dict, содержащий только успешные тесты
+ids_passed = [obj['id'] for obj in src_values['values'] if obj['value'] == 'passed']
 
-filtered_dict = [obj for obj in load_values['values'] if obj['value'] == 'passed']
+# Модифицировать файлы
 
-ids = [key for key in filtered_dict.keys()]
-print(ids)
+for test in src_tests['tests']:
+    if test['id'] in ids_passed:
+        test['value'] = 'passed'
 
-print(passed_objects)
+# Записать итоговый фалй на диск
 
-# Преобразовать полученные объекты в json строку
+with open(path_report, 'w') as file:
+    json.dump(src_tests, file, indent=4)
 
-json_string = json.dumps(passed_objects, indent=2)
-
-# Записать строку
-with open(out_report, 'w') as outfile:
-    outfile.write(json_string)
-
-"""
-class MyEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, set):
-            return list(o)
-        return o
-
-json_str = json.dumps({1, 2, 3}, cls=MyEncoder)
-print(json_str)
-
-open(src_values, 'r') as file
-
-data = {'name': 'Eric', 'age': 38 }
-with open('data.json', 'w') as json_file:
-    json.dump(data, json_file)
-
-title = alert_json['rule']['description'] if 'description' in alert_json['rule'] else ''
-description = alert_json['full_log'] if 'full_log' in alert_json else ''
-# print(title, description)
-# group_suricata = ['suricata']
-# if any(group in groups for group in BLACK_GROUPS):
-# suricata_alert_json =
-# alert_json.replace("\\n", "\n")
-full_log_json = json.loads(alert_json['full_log'])
-
-src_ip = full_log_json['src_ip']
-print('\n-----\n', src_ip)
-# print(src_ip)
-"""
